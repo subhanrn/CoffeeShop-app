@@ -1,0 +1,7 @@
+{
+  "name": "latihan",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

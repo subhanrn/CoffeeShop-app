@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="refresh()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pageType">
+      <ion-segment-button value="0">
+        Home
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        Reviews
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <h3>Ionic Menu Starter</h3>
+
+  <p>
+    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+  </p>
+
+  <button ion-button secondary menuToggle>Toggle Menu</button> -->
+
+
+  <div *ngIf="pageType==0">
+    <button ion-button (click)="toInput()" block>Add CofeeShop</button>
+    <button ion-button (click)="toReview()" block>Add Review</button>
+    <!-- <button ion-button (click)="toInput()" block>Delete CofeeShop</button> -->
+    <ion-list>
+      <ion-list-header>
+        List of CofeeShop
+      </ion-list-header>
+      <ion-item *ngFor="let cs of listcofee">
+        <ion-label (click)="toEdit(cs.id)">{{cs.name}}</ion-label>
+        <ion-note (click)="toEdit(cs.id)" item-end>{{cs.city}}</ion-note>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="pageType==1">
+    <ion-card *ngFor="let review of listreview">
+      <ion-card-header>
+        {{review.coffeeShop.name}} by {{review.user.email}}
+      </ion-card-header>
+      <ion-card-content>
+        {{review.comments}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

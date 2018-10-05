@@ -1,0 +1,33 @@
+<!--
+  Generated template for the InputcsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="addCofee()">
+    <ion-item>
+      <ion-label color="primary" floating>Insert Name</ion-label>
+      <ion-input type="text" [(ngModel)]="input.name" name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Insert City</ion-label>
+      <ion-input type="text" [(ngModel)]="input.city" name="city"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block *ngIf="!this.id">Add CofeeShop</button>
+    <button ion-button type="submit" block *ngIf="this.id">Update CofeeShop</button>
+  </form>
+  <button ion-button (click)="deleteCofee()" block *ngIf="this.id" color="danger">Delete</button>
+</ion-content>
