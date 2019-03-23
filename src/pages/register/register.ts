@@ -1,13 +1,6 @@
 import {UserApi} from '../../shared/sdk/services/custom';
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {IonicPage, NavController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -19,8 +12,7 @@ export class RegisterPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public userApi: UserApi
+    public userApi: UserApi,
   ) {
   }
 
@@ -31,7 +23,7 @@ export class RegisterPage {
   register() {
     console.log(this.registerCredentials)
     this.userApi.create(this.registerCredentials).subscribe(
-      success => {
+      () => {
         this.navCtrl.push('LoginPage')
       },
       err => {
