@@ -1,12 +1,10 @@
-import { UserApi } from './../shared/sdk/services/custom/User';
-import { LoopBackAuth } from './../shared/sdk/services/core/auth.service';
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {LoopBackAuth} from '../shared/sdk/services/core';
+import {Component, ViewChild} from '@angular/core';
+import {LoadingController, Nav, Platform} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {UserApi} from "../shared/sdk/services/custom";
 
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +12,7 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = 'HomePage';
 
   pages: Array<{ title: string, component: any }>;
 
@@ -23,14 +21,15 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public auth: LoopBackAuth,
-    public userApi: UserApi
+    public userApi: UserApi,
+    public loadingCtrl: LoadingController,
   ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Logout', component: null }
+      {title: 'Home', component: 'HomePage'},
+      {title: 'Logout', component: null}
     ];
 
   }
@@ -38,7 +37,7 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       if (!this.auth.getCurrentUserId()) {
-        this.nav.setRoot(LoginPage)
+        this.nav.setRoot('LoginPage')
       }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -48,21 +47,24 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    if (page.component) {
-      this.nav.setRoot(page.component);
+    if (page.component === null) {
+      const loading = this.loadingCtrl.create({
+        content: 'Logging Out...'
+      });
+      loading.present();
+      this.userApi.logout().subscribe(
+        success => {
+          loading.dismiss();
+          this.nav.setRoot('LoginPage');
+        },
+        err => {
+          console.log(err);
+          loading.dismiss();
+          this.nav.setRoot('LoginPage');
+        }
+      )
     } else {
-      // let token:string = this.auth.getAccessTokenId()
-      // this.userApi.logout(token).subscribe(
-      //   success => {
-      //     this.nav.setRoot(LoginPage);
-      //   },
-      //   err => {
-      //     console.log(err)
-      //   }
-      // )
-
+      this.nav.setRoot(page.component);
     }
   }
 }

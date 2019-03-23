@@ -1,15 +1,7 @@
-import { HomePage } from './../home/home';
-import { UserApi } from './../../shared/sdk/services/custom/User';
-import { RegisterPage } from './../register/register';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {UserApi} from '../../shared/sdk/services/custom';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, MenuController, LoadingController} from 'ionic-angular';
+import {Storage} from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,39 +10,42 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage {
 
-  public registerCredentials = {}
+  public registerCredentials = {};
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private menu: MenuController,
     public userApi: UserApi,
-    public storage: Storage
+    public storage: Storage,
+    public loadingCtrl: LoadingController,
   ) {
-  }
-
-  ionViewDidLoad() {
     this.menu.swipeEnable(false);
-    console.log('ionViewDidLoad LoginPage');
   }
 
   login() {
-    this.userApi.login(this.registerCredentials, 'user')
-      .subscribe(
-        datas => {
-          this.storage.set('dataAuth', datas)
-          this.navCtrl.setRoot(HomePage)
-          this.navCtrl.popToRoot()
-        },
-        err => {
-          console.log(err)
-          this.navCtrl.push(RegisterPage)
-        }
-      )
+    const loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+    this.userApi.login(this.registerCredentials, 'user').subscribe(
+      datas => {
+        loading.dismiss();
+        this.storage.set('dataAuth', datas);
+        this.navCtrl.setRoot('HomePage');
+        this.navCtrl.popToRoot();
+      },
+      err => {
+        console.log(err);
+        loading.dismiss();
+        this.navCtrl.push('RegisterPage')
+      }
+    )
   }
 
+
   createAccount() {
-    this.navCtrl.push(RegisterPage)
+    this.navCtrl.push('RegisterPage')
   }
 
 }

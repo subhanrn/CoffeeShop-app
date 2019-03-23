@@ -1,13 +1,6 @@
-import { CoffeeShopApi } from './../../shared/sdk/services/custom/CoffeeShop';
+import { CoffeeShopApi } from '../../shared/sdk/services/custom';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the InputcsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -30,7 +23,7 @@ export class InputcsPage {
   }
 
   updateCofee() {
-    delete this.input['id']
+    delete this.input['id'];
     // console.log(this.input)
     this.coffeeShopApi.updateAttributes(this.id, this.input).subscribe(
       () => {
@@ -73,9 +66,9 @@ export class InputcsPage {
   }
 
   ionViewDidLoad() {
-    this.title = 'Input CoffeeShop'
+    this.title = 'Input CoffeeShop';
     if (this.id) {
-      this.title = 'Update CoffeeShop'
+      this.title = 'Update CoffeeShop';
       this.coffeeShopApi.find({
         "where": {
           "id": this.id

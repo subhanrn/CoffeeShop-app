@@ -1,8 +1,7 @@
-import { LoopBackAuth } from './../../shared/sdk/services/core/auth.service';
-import { ReviewApi } from './../../shared/sdk/services/custom/Review';
-import { CoffeeShopApi } from './../../shared/sdk/services/custom/CoffeeShop';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {LoopBackAuth} from '../../shared/sdk/services/core';
+import {CoffeeShopApi, ReviewApi} from '../../shared/sdk/services/custom';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the InputReviewPage page.
@@ -20,8 +19,6 @@ export class InputReviewPage {
 
   public input = {};
   public id: number;
-  // public rating: number;
-  // public description: any;
   public title = '';
 
   constructor(
@@ -35,22 +32,18 @@ export class InputReviewPage {
   }
 
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad InputReviewPage');
-    // this.title = 'Input CoffeeShop'
+
     if (this.id) {
-      this.coffeeShopApi.find({ "where": { "id": this.id } }).subscribe(
+      this.coffeeShopApi.find({"where": {"id": this.id}}).subscribe(
         selectedcoffee => {
           this.input = selectedcoffee[0];
           this.title = 'Add Review ' + this.input['name']
           // console.log(this.input)
-
         },
         err => {
           console.log(err)
         }
       )
-
-      // console.log('ada id')
     }
   }
 

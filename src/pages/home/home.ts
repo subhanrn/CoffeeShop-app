@@ -1,10 +1,9 @@
-import { AddReviewPage } from './../add-review/add-review';
-import { InputcsPage } from './../inputcs/inputcs';
-import { CoffeeShopApi } from './../../shared/sdk/services/custom/CoffeeShop';
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { ReviewApi } from '../../shared/sdk';
+import {CoffeeShopApi} from '../../shared/sdk/services/custom';
+import {Component} from '@angular/core';
+import {IonicPage, NavController} from 'ionic-angular';
+import {ReviewApi} from '../../shared/sdk';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -13,15 +12,14 @@ export class HomePage {
   public input = {};
   public listcofee: any;
   public listreview: any;
-  public pageType = '0'
+  public pageType = '0';
   public title = '';
 
   constructor(
     public navCtrl: NavController,
     public coffeeShopApi: CoffeeShopApi,
-    public reviewApi: ReviewApi
+    public reviewApi: ReviewApi,
   ) {
-
   }
 
 
@@ -41,7 +39,7 @@ export class HomePage {
       "include": ["coffeeShop", "user"]
     }).subscribe(
       listreview => {
-        
+
         this.listreview = listreview
         console.log("listreview", listreview)
       },
@@ -59,17 +57,17 @@ export class HomePage {
   // }
 
   toReview() {
-    this.navCtrl.push(AddReviewPage)
+    this.navCtrl.push('AddReviewPage')
   }
 
   toInput() {
-    this.navCtrl.push(InputcsPage)
+    this.navCtrl.push('InputcsPage')
   }
 
   toEdit(id) {
     id = id || '';
     // console.log(id)
-    this.navCtrl.push(InputcsPage, {
+    this.navCtrl.push('InputcsPage', {
       id: id
     })
     // this.coffeeShopApi.updateAll({ "where": { "id": id } }, this.input).subscribe(
@@ -82,7 +80,7 @@ export class HomePage {
     // )
   }
 
-  refresh(){
+  refresh() {
     this.ionViewDidLoad()
   }
 }
