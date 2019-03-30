@@ -42,8 +42,8 @@
         List of CofeeShop
       </ion-list-header>
       <ion-item *ngFor="let cs of listcofee">
-        <ion-label (click)="toEdit(cs.id)">{{cs.name}}</ion-label>
-        <ion-note (click)="toEdit(cs.id)" item-end>{{cs.city}}</ion-note>
+        <ion-label (click)="toEdit(cs.id)">{{cs?.name}}</ion-label>
+        <ion-note (click)="toEdit(cs.id)" item-end>{{cs?.city}}</ion-note>
       </ion-item>
     </ion-list>
   </div>
@@ -51,10 +51,10 @@
   <div *ngIf="pageType==1">
     <ion-card *ngFor="let review of listreview">
       <ion-card-header>
-        {{review.coffeeShop.name}} by {{review.user.email}}
+        {{review?.coffeeShop?.name}} by {{review?.reviewer?.email}}
       </ion-card-header>
       <ion-card-content>
-        {{review.comments}}
+        {{review?.comments}}
       </ion-card-content>
     </ion-card>
   </div>

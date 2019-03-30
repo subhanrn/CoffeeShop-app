@@ -1,4 +1,4 @@
-import {UserApi} from '../../shared/sdk/services/custom';
+import {ReviewerApi} from '../../shared/sdk/services/custom';
 import {Component} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
 
@@ -12,7 +12,7 @@ export class RegisterPage {
 
   constructor(
     public navCtrl: NavController,
-    public userApi: UserApi,
+    public reviewerApi: ReviewerApi,
   ) {
   }
 
@@ -22,7 +22,7 @@ export class RegisterPage {
 
   register() {
     console.log(this.registerCredentials)
-    this.userApi.create(this.registerCredentials).subscribe(
+    this.reviewerApi.create(this.registerCredentials).subscribe(
       () => {
         this.navCtrl.push('LoginPage')
       },

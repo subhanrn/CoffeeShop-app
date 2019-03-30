@@ -23,7 +23,7 @@
 
   <ion-list>
     <ion-item *ngFor="let cs of listcofee">
-      <ion-label (click)="toReview(cs.id)">{{cs.name}}</ion-label>
+      <ion-label (click)="toReview(cs.id)">{{cs?.name}}</ion-label>
     </ion-item>
   </ion-list>
 

@@ -1,4 +1,4 @@
-import {UserApi} from '../../shared/sdk/services/custom';
+import {ReviewerApi} from '../../shared/sdk/services/custom';
 import {Component} from '@angular/core';
 import {IonicPage, NavController, MenuController, LoadingController} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
@@ -17,7 +17,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     private menu: MenuController,
-    public userApi: UserApi,
+    public reviewerApi: ReviewerApi,
     public storage: Storage,
     public loadingCtrl: LoadingController,
   ) {
@@ -54,7 +54,7 @@ export class LoginPage {
       }
     }
 
-    this.userApi.login(param, 'user').subscribe(
+    this.reviewerApi.login(param, 'user').subscribe(
       datas => {
         loading.dismiss();
         this.storage.set('dataAuth', datas);

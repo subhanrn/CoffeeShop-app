@@ -23,7 +23,7 @@ export class HomePage {
   }
 
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.coffeeShopApi.find().subscribe(
       listcofee => {
         // console.log(listcofee)
@@ -32,11 +32,11 @@ export class HomePage {
       err => {
         console.log(err)
       }
-    )
+    );
 
 
     this.reviewApi.find({
-      "include": ["coffeeShop", "user"]
+      "include": ["coffeeShop", "reviewer"]
     }).subscribe(
       listreview => {
 
@@ -81,6 +81,6 @@ export class HomePage {
   }
 
   refresh() {
-    this.ionViewDidLoad()
+    this.ionViewDidEnter()
   }
 }
