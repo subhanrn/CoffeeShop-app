@@ -111,19 +111,19 @@ export abstract class BaseLoopBackApi {
       }
 
       // Separate where object from url params and add to search query
-      if (urlParams.where) {
-        if (LoopBackConfig.isHeadersWhereSet()) {
-          /**
-          CODE BELOW WILL GENERATE THE FOLLOWING ISSUES:
-          - https://github.com/mean-expert-official/loopback-sdk-builder/issues/356
-          - https://github.com/mean-expert-official/loopback-sdk-builder/issues/328 
-          **/
-          headers = headers.append('where', JSON.stringify(urlParams.where));
-        } else {
-          queryString = `?where=${encodeURIComponent(JSON.stringify(urlParams.where))}`;
-        }
-        delete urlParams.where;
-      }
+      // if (urlParams.where) {
+      //   if (LoopBackConfig.isHeadersWhereSet()) {
+      //     /**
+      //     CODE BELOW WILL GENERATE THE FOLLOWING ISSUES:
+      //     - https://github.com/mean-expert-official/loopback-sdk-builder/issues/356
+      //     - https://github.com/mean-expert-official/loopback-sdk-builder/issues/328
+      //     **/
+      //     headers = headers.append('where', JSON.stringify(urlParams.where));
+      //   } else {
+      //     queryString = `?where=${encodeURIComponent(JSON.stringify(urlParams.where))}`;
+      //   }
+      //   delete urlParams.where;
+      // }
     
       if (typeof customHeaders === 'function') {
         headers = customHeaders(headers);

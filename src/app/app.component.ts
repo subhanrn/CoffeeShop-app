@@ -3,7 +3,7 @@ import {Component, ViewChild} from '@angular/core';
 import {LoadingController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {UserApi} from "../shared/sdk/services/custom";
+import {ReviewerApi} from "../shared/sdk/services/custom";
 
 
 @Component({
@@ -21,7 +21,7 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public auth: LoopBackAuth,
-    public userApi: UserApi,
+    public reviewerApi: ReviewerApi,
     public loadingCtrl: LoadingController,
   ) {
     this.initializeApp();
@@ -52,8 +52,8 @@ export class MyApp {
         content: 'Logging Out...'
       });
       loading.present();
-      this.userApi.logout().subscribe(
-        success => {
+      this.reviewerApi.logout().subscribe(
+        () => {
           loading.dismiss();
           this.nav.setRoot('LoginPage');
         },

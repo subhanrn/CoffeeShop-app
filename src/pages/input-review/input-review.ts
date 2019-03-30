@@ -49,7 +49,10 @@ export class InputReviewPage {
 
   addReview(rating, desc) {
     // console.log(id)
-    this.reviewApi.create({
+    this.reviewApi.upsertWithWhere({
+      coffeeShopId: this.id,
+      publisherId: this.auth.getCurrentUserId()
+    }, {
       "date": Date.now(),
       "rating": rating,
       "comments": desc,

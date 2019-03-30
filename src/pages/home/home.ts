@@ -40,7 +40,7 @@ export class HomePage {
     }).subscribe(
       listreview => {
 
-        this.listreview = listreview
+        this.listreview = listreview;
         console.log("listreview", listreview)
       },
       err => {
